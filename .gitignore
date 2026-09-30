@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.vite/
+release/
+squashfs-root/
+*.AppImage
+*.deb
+*.exe
+*.blockmap
+.DS_Store
+# binarios grandes (se descargan con npm run binaries:fetch)
+resources/bin/linux/*
+resources/bin/win/*
+!resources/bin/linux/.gitkeep
+!resources/bin/win/.gitkeep
+/tmp/
+ffmpeg-win.zip

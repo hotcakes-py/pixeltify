@@ -1,0 +1,91 @@
+{
+  "name": "pixeltify",
+  "productName": "PIXELTIFY",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Clon de Spotify retro 8-bit en Electron (Windows + Linux) - reproductor local, login y descargas de YouTube con yt-dlp + ffmpeg",
+  "author": {
+    "name": "PIXELTIFY",
+    "email": "hola@pixeltify.app"
+  },
+  "homepage": "https://github.com/tu-usuario/pixeltify",
+  "main": "electron/main.cjs",
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "binaries:fetch": "node scripts/fetch-binaries.cjs",
+    "electron:start": "electron .",
+    "electron:dev": "concurrently \"vite\" \"wait-on http://localhost:3000 && electron .\"",
+    "dist:win": "vite build && electron-builder --win nsis",
+    "dist:linux": "vite build && electron-builder --linux AppImage deb"
+  },
+  "dependencies": {
+    "electron-updater": "^6.8.9",
+    "ffmpeg-static": "^5.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "yt-dlp-exec": "^1.0.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "concurrently": "^9.0.1",
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8",
+    "vite": "^5.4.8",
+    "wait-on": "^8.0.0"
+  },
+  "build": {
+    "appId": "com.pixeltify.app",
+    "productName": "PIXELTIFY",
+    "publish": {
+      "provider": "github",
+      "owner": "hotcakes-py",
+      "repo": "pixeltify"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "scripts/**/*",
+      "package.json",
+      "node_modules/ffmpeg-static/**/*",
+      "node_modules/yt-dlp-exec/**/*"
+    ],
+    "asarUnpack": [
+      "node_modules/ffmpeg-static/**/*",
+      "node_modules/yt-dlp-exec/bin/**/*",
+      "resources/bin/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "resources/bin",
+        "to": "bin"
+      }
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "public/icon.ico",
+      "signAndEditExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "shortcutName": "PIXELTIFY"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "AudioVideo",
+      "icon": "public/icon.png"
+    }
+  }
+}
